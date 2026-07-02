@@ -1,4 +1,4 @@
-## 5. FUNCIONALIDADES Y USOS DE LA APLICACIÓN
+## FUNCIONALIDADES Y USOS DE LA APLICACIÓN
 
 La aplicación se compone de cuatro módulos críticos administrados bajo un único flujo de trabajo:
 

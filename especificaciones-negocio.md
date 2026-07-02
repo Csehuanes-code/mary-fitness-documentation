@@ -1,4 +1,4 @@
-## 6. ESPECIFICACIONES DEL NEGOCIO (LÓGICA)
+## ESPECIFICACIONES DEL NEGOCIO (LÓGICA)
 
 El agente de IA debe implementar las siguientes reglas de negocio de manera estricta en las validaciones de software:
 

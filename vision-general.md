@@ -1,4 +1,4 @@
-## 3. VISIÓN GENERAL DEL PRODUCTO
+## VISIÓN GENERAL DEL PRODUCTO
 
 * **Propósito:** Aplicación móvil nativa para la administración interna de un gimnasio pequeño, enfocada en el registro de clientes, control financiero de planes y traqueo de medidas corporales periódicas.
 * **Enfoque de Arquitectura:** Arquitectura Pragmática MVVM (Model-View-ViewModel). Se omiten las capas complejas de Casos de Uso independientes para acelerar el desarrollo. La comunicación será directa: `Compose UI` $\leftrightarrow$ `ViewModel` $\leftrightarrow$ `Repository` $\leftrightarrow$ `Data Sources (Room/Firestore)`.

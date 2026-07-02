@@ -1,4 +1,4 @@
-## 4. REGLAS DE CODIFICACIÓN (PARA EL AGENTE DE IA)
+## REGLAS DE CODIFICACIÓN (PARA EL AGENTE DE IA)
 
 Cuando se solicite la generación de código, el agente de IA debe seguir las siguientes directrices estructurales:
 

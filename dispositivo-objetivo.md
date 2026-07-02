@@ -1,4 +1,4 @@
-## 1. ESPECIFICACIONES DEL DISPOSITIVO OBJETIVO
+## ESPECIFICACIONES DEL DISPOSITIVO OBJETIVO
 
 El agente de IA debe optimizar todo el código generado considerando estrictamente las limitaciones de hardware del dispositivo objetivo para evitar problemas de rendimiento (ANR - Android Not Responding) o degradación de la interfaz de usuario.
 

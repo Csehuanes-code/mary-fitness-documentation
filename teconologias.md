@@ -1,4 +1,4 @@
-## 2. TECNOLOGÍAS A UTILIZAR
+## TECNOLOGÍAS A UTILIZAR
 
 El stack tecnológico seleccionado prioriza el tiempo de desarrollo rápido (enfoque Lean/MVP) y el soporte nativo eficiente para las capacidades del dispositivo.
 
