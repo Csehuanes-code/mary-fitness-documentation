@@ -19,6 +19,6 @@ La aplicación se compone de cuatro módulos críticos administrados bajo un ún
 
 
 4. **Sistema de Notificaciones Locales Autónomas:**
-* **Alerta de Pago:** Envío de una notificación push local en el dispositivo cuando falten $X$ días para el vencimiento del plan de un cliente.
+* **Alerta de Pago:** Envío de una notificación push local en el dispositivo cuando falten 2 días para el vencimiento del plan de un cliente.
 * **Alerta de Re-medición:** Envío de un recordatorio periódico configurable para volver a tomar las medidas antropométricas del cliente tomando como referencia la fecha del último registro.
 
