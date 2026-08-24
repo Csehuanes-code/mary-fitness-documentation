@@ -23,7 +23,7 @@ Se investigaron las tres observaciones reportadas por el propietario:
 
 ### Lo que SÍ existe hoy
 
-- **Pagos parciales (abonos)**: estado `PARCIAL` con `plazoMaximoPago` (`app/src/main/java/com/marafit/app/data/local/entity/PagoEntity.kt:33-37`).
+- **Pagos parciales (abonos)**: estado `PARCIAL` con `plazoMaximoPago` (`app/src/main/java/com/maryfitness/app/data/local/entity/PagoEntity.kt:33-37`).
 - **Múltiples pagos sobre el mismo plan**: `registrarPago` nunca impide un segundo pago sobre el plan actual (`data/repository/PagoRepository.kt:52-61`, la comprobación cross-plan solo aplica si el plan difiere).
 - **Acumulación de abonos por período**: `ClienteRepository.calcularPeriodoActual()` suma los abonos consecutivos hasta cubrir `montoTotal` (`data/repository/ClienteRepository.kt:249-283`). Diseño documentado en `documentacion/Pendientes/003-respuesta-decisiones-pendientes.md` (decisión #1: "A. Acumular pagos").
 - Cubrir un saldo pendiente registrando un segundo abono **sí liquida el período**.
@@ -55,7 +55,7 @@ La lógica de sync está completa e incluso probada (cola `pendienteSync`, subid
 | Ninguna llamada a `FirebaseApp.initializeApp()` en el código | Solo `FirebaseApp.getInstance()` en `sync/FirestoreSyncManager.kt:55` |
 | Guardia que aborta silenciosamente | `FirestoreSyncManager.kt:79`: `if (!firestoreDisponible() || callbackRegistrado) return` |
 
-Consecuencia: en `MarafitApplication.onCreate` (`MarafitApplication.kt:16`) el único disparador de arranque (`iniciarObservacionConectividad()`) sale sin registrar el callback de red. **Ni al iniciar ni ante cambios de conectividad se sincroniza jamás.** La UI lo refleja: chip "No configurada" (`ui/sync/AjustesSincronizacionScreen.kt:39`), botón manual deshabilitado (`:66`), "Última sincronización: Nunca" mientras los pendientes se acumulan. No hay mensaje de error para el usuario.
+Consecuencia: en `MaryFitnessApplication.onCreate` (`MaryFitnessApplication.kt:16`) el único disparador de arranque (`iniciarObservacionConectividad()`) sale sin registrar el callback de red. **Ni al iniciar ni ante cambios de conectividad se sincroniza jamás.** La UI lo refleja: chip "No configurada" (`ui/sync/AjustesSincronizacionScreen.kt:39`), botón manual deshabilitado (`:66`), "Última sincronización: Nunca" mientras los pendientes se acumulan. No hay mensaje de error para el usuario.
 
 ### Defectos latentes (si se activara Firebase)
 
@@ -65,7 +65,7 @@ Consecuencia: en `MarafitApplication.onCreate` (`MarafitApplication.kt:16`) el �
 
 ### Nota adicional de configuración
 
-El `local.properties` real solo contiene `sdk.dir`: faltan `ASCEND_API_KEY` (búsqueda de ejercicios devolverá 401/403) y `MARAFIT_UPDATE_INFO_URL` (actualizaciones en estado `SinConfigurar`). No afecta la sync, pero son dependencias externas igualmente inactivas.
+El `local.properties` real solo contiene `sdk.dir`: faltan `ASCEND_API_KEY` (búsqueda de ejercicios devolverá 401/403) y `MARYFITNESS_UPDATE_INFO_URL` (actualizaciones en estado `SinConfigurar`). No afecta la sync, pero son dependencias externas igualmente inactivas.
 
 ### Corrección mínima sugerida
 
@@ -81,7 +81,7 @@ La especificación documentada coincide casi al 100% con el motor implementado (
 
 ### Por qué no llegan notificaciones (causas ordenadas por verosimilitud)
 
-1. **La alarma nunca llega a programarse** (causa raíz más probable). Todo depende del ciclo diario de 24 h (`MarafitApplication.kt:17` → `workers/WorkScheduler.kt`). Un pago registrado con vencimiento a ≤2 días es descartado silenciosamente (`notifications/NotificationScheduler.kt:54`) hasta el próximo chequeo. En instalación fresca pasan hasta 24 h sin ninguna alarma armada. Nadie ejecuta chequeo inmediato al registrar pagos o medidas — solo el boot lo hace (`BootCompletedReceiver.kt:12`).
+1. **La alarma nunca llega a programarse** (causa raíz más probable). Todo depende del ciclo diario de 24 h (`MaryFitnessApplication.kt:17` → `workers/WorkScheduler.kt`). Un pago registrado con vencimiento a ≤2 días es descartado silenciosamente (`notifications/NotificationScheduler.kt:54`) hasta el próximo chequeo. En instalación fresca pasan hasta 24 h sin ninguna alarma armada. Nadie ejecuta chequeo inmediato al registrar pagos o medidas — solo el boot lo hace (`BootCompletedReceiver.kt:12`).
 2. **POST_NOTIFICATIONS denegado**: los receivers descartan silenciosamente (`PagoVencimientoReceiver.kt:40-42`, `MedicionReminderReceiver.kt:56-58`). La alarma dispara pero nada aparece.
 3. **Android 14+ (targetSdk 34)**: `SCHEDULE_EXACT_ALARM` viene denegado por defecto para apps nuevas; cae a `set()` inexacto (`NotificationScheduler.kt:124-128`) retrasable horas por Doze, y **no existe ningún flujo** que solicite el permiso especial (`ACTION_REQUEST_SCHEDULE_EXACT_ALARM`) ni exención de batería.
 4. **Switches decorativos**: `notifPagoVencimientoEnabled`/`notifRemedicionEnabled` de `AjustesNotificacionesScreen.kt:56-81` no se leen al programar alarmas; apagarlos no cancela nada.

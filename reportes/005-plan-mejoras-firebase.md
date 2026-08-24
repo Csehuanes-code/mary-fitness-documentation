@@ -27,7 +27,7 @@ El orden recomendado es 1 → 2 → 3 → 4, con 5 en cualquier momento posterio
 
 ### Prerrequisitos
 
-1. Crear proyecto en la consola de Firebase (plan Spark gratuito es suficiente) y registrar una app Android con package exacto `com.marafit.app`.
+1. Crear proyecto en la consola de Firebase (plan Spark gratuito es suficiente) y registrar una app Android con package exacto `com.maryfitness.app`.
 2. Descargar `google-services.json` y colocarlo en `app/` (ignorado por git; ver `.gitignore`).
 3. En la consola, crear la base Firestore en **modo producción** (reglas se cierran en Fase 2; entre Fase 1 y 2 mantener reglas de solo lectura o denegar escritura externa lo antes posible — ventana de riesgo mínima, aceptada por ser proyecto privado).
 
@@ -63,7 +63,7 @@ El orden recomendado es 1 → 2 → 3 → 4, con 5 en cualquier momento posterio
 
 ### Diseño
 
-* Se agrega `firebase-auth` (mismo BOM). Al iniciar la app (en `MarafitApplication`, antes del primer sync) se ejecuta `signInAnonymously()`.
+* Se agrega `firebase-auth` (mismo BOM). Al iniciar la app (en `MaryFitnessApplication`, antes del primer sync) se ejecuta `signInAnonymously()`.
 * El UID anónimo se propaga como campo `propietarioUid` en cada documento subido (requiere tocar los data classes respaldados o envolverlos en un DTO de subida; se prefiere el wrapper para no ensuciar las entidades Room).
 * Reglas de Firestore:
 

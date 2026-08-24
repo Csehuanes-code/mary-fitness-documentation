@@ -1,4 +1,4 @@
-# Reporte de Pruebas Integrales - Marafit
+# Reporte de Pruebas Integrales - Mary Fitness
 
 **Fecha**: 20 de agosto de 2026  
 **Alcance**: Pruebas unitarias, simulación de un mes completo de operaciones, análisis de flujos  
@@ -8,7 +8,7 @@
 
 ## 1. Resumen Ejecutivo
 
-Se realizó un análisis completo de la aplicación Marafit cubriendo todos los flujos de negocio: registro de clientes, creación de planes, asignación vía pagos, registro de medidas, notificaciones, e inactividad. Se simuló un mes completo de operaciones con 5 clientes, 3 planes, múltiples pagos (completos y parciales), toma de medidas, vencimientos y acciones de inactividad.
+Se realizó un análisis completo de la aplicación Mary Fitness cubriendo todos los flujos de negocio: registro de clientes, creación de planes, asignación vía pagos, registro de medidas, notificaciones, e inactividad. Se simuló un mes completo de operaciones con 5 clientes, 3 planes, múltiples pagos (completos y parciales), toma de medidas, vencimientos y acciones de inactividad.
 
 **Hallazgo crítico**: Los pagos parciales **no son acumulativos**. El sistema determina el estado del cliente basándose exclusivamente en el **último pago registrado**, no en la suma de todos los pagos. Un cliente que pagó el total en múltiples abonos aparecerá como DEUDA.
 

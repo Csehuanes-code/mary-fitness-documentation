@@ -14,14 +14,14 @@ del sistema, donde el usuario confirma la instalación.
 3. La UI lo expone vía `FileProvider` e inicia `ACTION_VIEW`
    (`application/vnd.android.package-archive`). Android exige que el APK nuevo esté
    firmado con la misma llave que el instalado; la primera vez pide habilitar
-   "Instalar apps desconocidas" para Marafit.
+   "Instalar apps desconocidas" para Mary Fitness.
 
-Sin `MARAFIT_UPDATE_INFO_URL` configurada, la función queda deshabilitada y la app
+Sin `MARYFITNESS_UPDATE_INFO_URL` configurada, la función queda deshabilitada y la app
 sigue funcionando 100% offline.
 
 ## Publicación de una versión nueva (procedimiento)
 
-1. Subir `marafit-X.Y.Z.apk` a Firebase Storage (consola > Storage).
+1. Subir `mary-fitness-X.Y.Z.apk` a Firebase Storage (consola > Storage).
 2. En los permisos del archivo usar acceso público por enlace (token) y copiar la
    URL de descarga (`...alt=media&token=...`) del APK.
 3. Crear/actualizar `latest.json` en el bucket:
@@ -38,7 +38,7 @@ sigue funcionando 100% offline.
 4. Copiar la URL de descarga de `latest.json` en `local.properties`:
 
    ```
-   MARAFIT_UPDATE_INFO_URL=https://firebasestorage.googleapis.com/v0/b/<bucket>/o/latest.json?alt=media&token=<token>
+   MARYFITNESS_UPDATE_INFO_URL=https://firebasestorage.googleapis.com/v0/b/<bucket>/o/latest.json?alt=media&token=<token>
    ```
 
 5. **Incrementar `versionCode`** (y `versionName`) en `app/build.gradle.kts` antes de
@@ -50,5 +50,5 @@ sigue funcionando 100% offline.
 
 - El instalador verifica la firma: un APK ajeno nunca reemplazará a la app.
 - Las URLs de Firebase Storage incluyen token: revocarlas invalida las descargas ya
-  publicadas (regenerar token implica actualizar `urlApk` y `MARAFIT_UPDATE_INFO_URL`).
+  publicadas (regenerar token implica actualizar `urlApk` y `MARYFITNESS_UPDATE_INFO_URL`).
 - El APK descargado vive solo en caché; puede borrarse tras instalar o limpiar datos.
