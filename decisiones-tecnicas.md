@@ -39,3 +39,16 @@ Lista por defecto (Colombia, dado el uso de "Cédula"): `Cédula de Ciudadanía`
 ## 6. Notificación "Reasignar" fuera de la app
 
 Al tocar "Reasignar" desde la notificación del sistema, se abre la app directamente en la pantalla de detalle del cliente con un diálogo de selección de fecha/hora ya visible (no una pantalla intermedia adicional), reutilizando el mismo componente de detalle usado desde "Revisar".
+
+## 7. Evolución del rol de Firebase (revisa la respuesta original a la pregunta 003 #8)
+
+La respuesta original a `Pendientes/003-respuesta-decisiones-pendientes.md` #8 fue "Firestore es solo backup", con subida unidireccional y descarga descartada. El propietario aprobó (2026-08) ampliar ese alcance manteniendo sus principios base:
+
+* **Room sigue siendo la única fuente de verdad** y la app sigue siendo 100% offline-first: ninguna lectura de negocio consulta la nube.
+* **Sigue prohibida la sincronización multi-dispositivo**: un solo dispositivo (Moto G22) opera la app.
+* **Restauración asistida:** se permite descargar el backup una única vez, solo cuando Room está vacío (instalación limpia tras pérdida/cambio de dispositivo). Es recuperación ante desastres, no sincronización.
+* **Auth anónima:** se usa exclusivamente como credencial técnica para restringir Firestore/Storage por UID en las reglas de seguridad. **No modifica el ADR #2**: el acceso a la app sigue siendo el PIN local; no hay login de usuario ni multiusuario. Tras una reinstalación el UID cambia y la recuperación del backup viejo se hace con migración asistida desde la consola de Firebase (procedimiento en el plan).
+* **Firebase Storage:** además de hospedar `latest.json`/APKs, alojará fotos de perfil y comprobantes de pago comprimidas a WebP (pendiente histórico del README).
+* **Crashlytics:** telemetría de errores, activable/desactivable desde Ajustes por privacidad.
+
+Plan detallado por fases con criterios de aceptación: `reportes/005-plan-mejoras-firebase.md`.

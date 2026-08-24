@@ -32,7 +32,15 @@ Dado que los registros de pagos son manuales, no se manejaran reembolsos ni pago
 **B. Purgar despues de 6 meses**
 
 ## 8. Sincronización Firestore: Estrategia de Merge
-Firestore es solo backup
+**Respuesta original:** Firestore es solo backup.
+**Respuesta revisada (2026-08):** Firestore continúa siendo un respaldo secundario — Room es la única fuente de verdad y NO habrá sincronización multi-dispositivo — pero el rol de la nube se amplía según lo detallado en el ADR #7 de `decisiones-tecnicas.md` y el plan `reportes/005-plan-mejoras-firebase.md`:
+
+1. **Backup activo y seguro:** subida de todas las colecciones de negocio con Auth anónima de Firebase para poder cerrar las reglas de seguridad (el login de la app sigue siendo el PIN local; ver ADR #2).
+2. **Restauración asistida:** se permite DESCARGAR el backup una sola vez, en instalación limpia con base local vacía, para recuperar datos tras pérdida o cambio del dispositivo. No hay merge ni descarga continua.
+3. **Firebase Storage:** hospedaje del `latest.json`/APK de actualización (ya existente) y, más adelante, fotos de perfil y comprobantes de pago.
+4. **Crashlytics:** telemetría de errores en producción.
+
+Lo que sigue prohibido: sincronización bidireccional continua, edición de datos desde la nube y operación multi-dispositivo simultánea.
 
 ## 9. Manejo de Planes Vencidos sin Acción
 **D Banner persistente** Mostrar contador de clientes vencidos en Dashboard sin fecha de caducidad
