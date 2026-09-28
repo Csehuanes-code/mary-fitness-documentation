@@ -52,3 +52,9 @@ La respuesta original a `Pendientes/003-respuesta-decisiones-pendientes.md` #8 f
 * **Crashlytics:** telemetría de errores, activable/desactivable desde Ajustes por privacidad.
 
 Plan detallado por fases con criterios de aceptación: `reportes/005-plan-mejoras-firebase.md`.
+
+## 8. Sistema de notificaciones: decisiones de negocio
+
+Las decisiones de negocio del sistema de notificaciones (franja horaria 06:00-21:00, tres canales versionados, umbral de agrupamiento N=6, `VISIBILITY_PRIVATE`, reconciliación cada 8 h, batería opt-in, filtro de caducidad de 48 h, `requestCode` determinista y log local) están en el documento aparte `documentacion/ADR-notificaciones.md`, porque son extensas y cambian de forma independiente de este archivo.
+
+Motivo de separarlo: los valores estaban implementados y funcionando, pero hardcodeados y sin trazabilidad. Un cambio de criterio (por ejemplo, abrir la franja hasta las 23:00) no tenía dónde documentarse.
