@@ -114,12 +114,32 @@ Estructura interna en 3 capas, de arriba a abajo:
 | Cuerpo principal | `OnSurface` | `#E5E2E1`, `bodyMedium` (14sp) |
 | Viñetas / helper | `OnSurfaceVariant` | `#DDBED2`, `bodySmall` (12sp) |
 | Advertencia | `WarningOrange` | `#FFAD00` |
+| Deuda (estado de cuenta) | `WarningYellow` | `#FFE100` |
 | Éxito / positivo | `SuccessCyan` | `#00F5FF` (usado en "Restaurar", "Reactivar Variable") |
-| Destructivo | `ErrorRed` | `#FF3131` (confirmar eliminar/desactivar) |
+| Vencido / destructivo | `ErrorRed` | `#FF3131` (confirmar eliminar/desactivar, y `EstadoCuenta.VENCIDO`) |
 | Acento checkbox | `NeonPink` | `#FF10F0` (solo en formularios edición) |
 | Fondo inputs | `InputBackground` | `#252525` |
 
 Fuente: `Type.kt` + `Color.kt`. Todo el diálogo hereda `MaryFitnessTheme` (dark).
+
+#### Tonos de `EstadoCuenta`
+
+El color de un estado de cuenta **no se elige en cada pantalla**: lo resuelve
+`EstadoCuentaVisual` (`ui/theme/EstadoCuentaVisual.kt`), que expone `tono(estado)`,
+`etiqueta(estado)` y el par `(tono, etiqueta)` vía `operator get`. Las cinco vistas que
+pintan un estado (detalle de cliente, listado, dashboard, detalle de plan) consumen ese
+mapeo.
+
+| Estado | Tono | Token |
+|--------|------|-------|
+| `ACTIVO` | Cian | `SuccessCyan` |
+| `DEUDA` | **Amarillo** | `WarningYellow` |
+| `VENCIDO` | Rojo | `ErrorRed` |
+| `SIN_PLAN` | Gris apagado | `Outline` |
+
+El rojo queda reservado para `VENCIDO` a propósito: es el estado de mayor severidad y
+ocupar el mismo tono que `DEUDA` hacía que las dos columnas del listado fueran
+indistinguibles de un vistazo.
 
 ---
 
