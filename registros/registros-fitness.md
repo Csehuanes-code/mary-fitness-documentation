@@ -46,9 +46,9 @@
     - BRAZO: Grande 33.0, Pequeña 31.0
     - PIERNA: Grande 68.0, Pequeña 54.0
     - PANTORRILLA: 39.0
-  - **[SEGUIMIENTO] 2026-09-02
+  - **[SEGUIMIENTO] 2026-09-02**:
     - PESO: 75.0
-    - PECHO: 98
+    - PECHO: 98.0
     - CINTURA: 82.0
     - CADERA: 111.0
     - BRAZO: Grande 32.0, Pequeña 30.0
@@ -263,7 +263,7 @@
     - PIERNA: Grande 69.0, Pequeña 62.0
     - PANTORRILLA: 42.0
 
-### 10. Viviana Oliveros (CEDULA_CIUDADANIA: NINGUNO)
+### 10. Viviana Oliveros (CEDULA_CIUDADANIA: 0000000010)
 - **Teléfono**: 3218311610
 - **Plan Actual**: plan_reto_2x1
 - **Pago**: Total: 35000 | Pagado: 35000 | Estado: COMPLETO | Fecha: 2026-08-11 | Vence: 2026-09-22 | Plazo: NINGUNO
@@ -343,7 +343,7 @@
     - CADERA: 101.0
     - BRAZO: Grande 31.0, Pequeña 28.0
     - PIERNA: Grande 59.0, Pequeña 49.0
-    - PANTORRILLA: 36.
+    - PANTORRILLA: 36.0
 
 ### 13. Iris Diaz (CEDULA_CIUDADANIA: 49762044)
 - **Teléfono**: 3113597580
@@ -405,7 +405,7 @@
     - PIERNA: Grande 50.0, Pequeña 44.0
     - PANTORRILLA: 34.0
 
-### 16. Yina Alvarado (CEDULA_CIUDADANIA: NINGUNO)
+### 16. Yina Alvarado (CEDULA_CIUDADANIA: 0000000016)
 - **Teléfono**: 3193464038
 - **Plan Actual**: plan_mensual_70
 - **Pago**: Total: 70000 | Pagado: 70000 | Estado: COMPLETO | Fecha: 2026-09-10 | Vence: 2026-10-10 | Plazo: NINGUNO
@@ -435,7 +435,7 @@
     - PIERNA: Grande 71.0, Pequeña 56.0
     - PANTORRILLA: 37.0
 
-### 17. Zulay Morales (CEDULA_CIUDADANIA: NINGUNO)
+### 17. Zulay Morales (CEDULA_CIUDADANIA: 0000000017)
 - **Teléfono**: 3126433187
 - **Plan Actual**: plan_mensual
 - **Pago**: Total: 80000 | Pagado: 80000 | Estado: COMPLETO | Fecha: 2026-08-27 | Vence: 2026-09-27 | Plazo: NINGUNO
@@ -449,7 +449,7 @@
     - PIERNA: Grande 65.0, Pequeña 52.0
     - PANTORRILLA: 37.0
 
-### 18. Loly Luz Monterrosa (CEDULA_CIUDADANIA: NINGUNO)
+### 18. Loly Luz Monterrosa (CEDULA_CIUDADANIA: 0000000018)
 - **Teléfono**: NINGUNO
 - **Plan Actual**: plan_uso_maquinas_mensual
 - **Pago**: Total: 40000 | Pagado: 40000 | Estado: COMPLETO | Fecha: 2026-10-30 | Vence: 2026-11-30 | Plazo: NINGUNO
@@ -463,7 +463,7 @@
     - PIERNA: Grande 56.0, Pequeña 46.0
     - PANTORRILLA: 35.0
 
-### 20. Angie Niebles (CEDULA_CIUDADANIA: 1003004668)
+### 19. Angie Niebles (CEDULA_CIUDADANIA: 1003004668)
 - **Teléfono**: 3116599940
 - **Plan Actual**: plan_mensual_70
 - **Pago**: Total: 70000 | Pagado: 70000 | Estado: COMPLETO | Fecha: 2026-08-25 | Vence: 2026-09-25 | Plazo: NINGUNO
@@ -493,7 +493,7 @@
     - PIERNA: Grande 58.0, Pequeña 50.0
     - PANTORRILLA: 35.0 
 
-### 21. Marisol Mejia Oliveros (CEDULA_CIUDADANIA: 1051655301)
+### 20. Marisol Mejia Oliveros (CEDULA_CIUDADANIA: 1051655301)
 - **Teléfono**: 3106565530
 - **Plan Actual**: plan_mensual
 - **Pago**: Total: 80000 | Pagado: 80000 | Estado: COMPLETO | Fecha: 2026-08-25 | Vence: 2026-09-25 | Plazo: NINGUNO
@@ -507,7 +507,7 @@
     - PIERNA: Grande 59.0, Pequeña 51.0
     - PANTORRILLA: 34.0
 
-### 22. Vanesa Perez Amaris (CEDULA_CIUDADANIA: 10823701081)
+### 21. Vanesa Perez Amaris (CEDULA_CIUDADANIA: 10823701081)
 - **Teléfono**: NINGUNO
 - **Plan Actual**: plan_2x1_mensual
 - **Pago**: Total: 65000 | Pagado: 60000 | Estado: PARCIAL | Fecha: 2026-09-16 | Vence: 2026-10-16 | Plazo: 2026-10-10
@@ -521,7 +521,7 @@
     - PIERNA: Grande 58.0, Pequeña 45.0
     - PANTORRILLA: 35.0
 
-### 23. Elianis (CEDULA_CIUDADANIA: 1082362968)
+### 22. Elianis S/A (CEDULA_CIUDADANIA: 1082362968)
 - **Teléfono**: 3107223351
 - **Plan Actual**: plan_2x1_mensual
 - **Pago**: Total: 65000 | Pagado: 0 | Estado: PARCIAL | Fecha: 2026-09-16 | Vence: 2026-10-16 | Plazo: 2026-10-10
@@ -535,7 +535,7 @@
     - PIERNA: Grande 60.0, Pequeña 47.0
     - PANTORRILLA: 34.0
 
-### 24. Katya (CEDULA_CIUDADANIA: 1082375864)
+### 23. Katya S/A (CEDULA_CIUDADANIA: 1082375864)
 - **Teléfono**: 3154271279
 - **Plan Actual**: plan_2x1_mensual
 - **Pago**: Total: 65000 | Pagado: 65000 | Estado: COMPLETO | Fecha: 2026-09-11 | Vence: 2026-10-11 | Plazo: NINGUNO
@@ -557,7 +557,7 @@
     - PIERNA: Grande 65.0, Pequeña 57.0
     - PANTORRILLA: 41.0
   
-### 25. Isamar Barrios (CEDULA_CIUDADANIA: 1065819279)
+### 24. Isamar Barrios (CEDULA_CIUDADANIA: 1065819279)
 - **Teléfono**: 3225962589
 - **Plan Actual**: plan_2x1_mensual
 - **Pago**: Total: 65000 | Pagado: 0 | Estado: PARCIAL | Fecha: 2026-09-11 | Vence: 2026-10-11 | Plazo: 2026-09-30
@@ -581,7 +581,7 @@
     - PIERNA: Grande 71.0, Pequeña 62.0
     - PANTORRILLA: 40.0
 
-### 26. Karen Herrera (CEDULA_CIUDADANIA: NINGUNO)
+### 25. Karen Herrera (CEDULA_CIUDADANIA: 0000000025)
 - **Teléfono**: 3102723389
 - **Plan Actual**: plan_mensual
 - **Pago**: Total: 80000 | Pagado: 80000 | Estado: COMPLETO | Fecha: 2026-09-08 | Vence: 2026-10-08 | Plazo: NINGUNO
@@ -595,7 +595,7 @@
     - PIERNA: Grande 63.0, Pequeña 50.0
     - PANTORRILLA: 36.0
     
-### 27. Juana Palomino (CEDULA_CIUDADANIA: 33221141)
+### 26. Juana Palomino (CEDULA_CIUDADANIA: 33221141)
 - **Teléfono**: 3126124652
 - **Plan Actual**: plan_reto_2x1
 - **Pago**: Total: 35000 | Pagado: 35000 | Estado: COMPLETO | Fecha: 2026-09-02 | Vence: 2026-09-23 | Plazo: NINGUNO
@@ -610,7 +610,7 @@
     - PIERNA: Grande 56.0, Pequeña 49.0
     - PANTORRILLA: 34.0
     
-### 28. Tatiana Otalora (CEDULA_CIUDADANIA: NINGUNO)
+### 27. Tatiana Otalora (CEDULA_CIUDADANIA: 0000000027)
 - **Teléfono**: 3146111239
 - **Plan Actual**: plan_reto_2x1
 - **Pago**: Total: 35000 | Pagado: 35000 | Estado: COMPLETO | Fecha: 2026-08-30 | Vence: 2026-09-21 | Plazo: NINGUNO
@@ -632,7 +632,7 @@
     - PIERNA: Grande 73.0, Pequeña 60.0
     - PANTORRILLA: 38.0
     
-### 29. Maryuris (CEDULA_CIUDADANIA: 1004320637)
+### 28. Maryuris S/A (CEDULA_CIUDADANIA: 1004320637)
 - **Teléfono**: 3106842522
 - **Plan Actual**: plan_reto_2x1
 - **Pago**: Total: 35000 | Pagado: 35000 | Estado: COMPLETO | Fecha: 2026-08-30 | Vence: 2026-09-21 | Plazo: NINGUNO
@@ -646,7 +646,7 @@
     - PIERNA: Grande 62.0, Pequeña 54.0
     - PANTORRILLA: 34.0
 
-### 30. Taikys (CEDULA_CIUDADANIA: 1018494810)
+### 29. Taikys S/A (CEDULA_CIUDADANIA: 1018494810)
 - **Teléfono**: NINGUNO
 - **Plan Actual**: plan_2x1_mensual
 - **Pago**: Total: 65000 | Pagado: 65000 | Estado: COMPLETO | Fecha: 2026-08-24 | Vence: 2026-10-24 | Plazo: NINGUNO
@@ -660,7 +660,7 @@
     - PIERNA: Grande 74.0, Pequeña 58.0
     - PANTORRILLA: 43.0
 
-### 31. Dayana Angulo (CEDULA_CIUDADANIA: 118858278)
+### 30. Dayana Angulo (CEDULA_CIUDADANIA: 118858278)
 - **Teléfono**: 3206242401
 - **Plan Actual**: plan_reto_2x1
 - **Pago**: Total: 35000 | Pagado: 35000 | Estado: COMPLETO | Fecha: 2026-08-31 | Vence: 2026-09-21 | Plazo: NINGUNO
