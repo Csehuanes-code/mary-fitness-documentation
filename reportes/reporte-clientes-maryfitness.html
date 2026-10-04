@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reporte de clientes, Mary Fitness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1c1226;--muted:#6b6275;--line:#e6e0ec;--bg:#f6f3f9;--card:#fff;--brand:#c2117a;
+--ok:#0b7f72;--okb:#dcf4ef;--warn:#9a5700;--warnb:#fff0d2;--bad:#b42323;--badb:#fde3e3;--mute:#5b5566;--muteb:#eeeaf2;
+--f-d:"Bricolage Grotesque",system-ui,sans-serif;--f-b:"Figtree",system-ui,sans-serif}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f-b);padding:0 0 64px}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+header{background:var(--ink);color:#fff;padding:28px 0 92px}
+.brand{font:700 18px var(--f-d);display:flex;align-items:center;gap:10px}
+.brand i{width:12px;height:12px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 4px #c2117a33}
+header h1{font:800 clamp(30px,6vw,52px)/1.05 var(--f-d);margin:28px 0 8px;max-width:16ch;letter-spacing:-.02em}
+header p{margin:0;color:#cfc6da;max-width:52ch}
+.hero{margin-top:-64px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 12px 32px #1c122614}
+.hero-top{display:flex;flex-wrap:wrap;gap:8px 32px;align-items:baseline;justify-content:space-between}
+.big{font:800 clamp(34px,7vw,56px)/1 var(--f-d);letter-spacing:-.02em;color:var(--brand)}
+.big small{display:block;font:500 15px/1.4 var(--f-b);color:var(--muted);letter-spacing:0;margin-top:6px}
+.bar{display:flex;height:22px;border-radius:11px;overflow:hidden;margin:22px 0 14px;background:var(--muteb)}
+.bar span{height:100%;transform-origin:left;animation:grow .9s cubic-bezier(.2,.7,.2,1) both}
+.bar span+span{margin-left:3px}
+@keyframes grow{from{transform:scaleX(0)}}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.legend a{display:flex;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:12px;color:inherit;text-decoration:none}
+.legend a:hover,.legend a:focus-visible{border-color:var(--brand);outline:none;box-shadow:0 0 0 3px #c2117a22}
+.legend b{font:800 30px/1 var(--f-d)}.legend em{font-style:normal;font-size:14px;color:var(--muted);line-height:1.3}
+.dot{width:10px;height:38px;border-radius:5px;flex:none}
+section{margin-top:44px}
+.sh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-bottom:6px}
+h2{font:700 26px/1.2 var(--f-d);margin:0;letter-spacing:-.01em}
+.count{font:600 14px var(--f-b);padding:2px 10px;border-radius:99px}
+.lead{margin:0 0 16px;color:var(--muted);max-width:68ch}
+.tw{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font:600 13px var(--f-b);color:var(--muted);padding:12px 16px;background:#faf8fc;border-bottom:1px solid var(--line)}
+td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}tbody tr:hover{background:#faf7fd}
+.name{font-weight:600}
+.plan{font:500 13px ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--muteb);color:var(--mute);padding:3px 8px;border-radius:6px;white-space:nowrap}
+.chip{display:inline-block;font:600 13px var(--f-b);padding:3px 10px;border-radius:99px;white-space:nowrap}
+.ok{background:var(--okb);color:var(--ok)}.warn{background:var(--warnb);color:var(--warn)}.bad{background:var(--badb);color:var(--bad)}.mute{background:var(--muteb);color:var(--mute)}
+.sub{font-size:13px;color:var(--muted);margin-left:6px}
+.empty{background:var(--card);border:1px dashed #cfc6da;border-radius:14px;padding:18px 20px;color:var(--muted)}
+.notes{display:grid;gap:14px;padding:0;margin:0;list-style:none}
+.notes li{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--brand);border-radius:12px;padding:16px 18px;max-width:78ch}
+.notes b{display:block;font:700 18px var(--f-d);margin-bottom:4px}
+code{font:500 .9em ui-monospace,Menlo,monospace;background:var(--muteb);padding:1px 6px;border-radius:5px}
+footer{margin-top:44px;color:var(--muted);font-size:14px}
+@media (max-width:680px){
+ header{padding-bottom:84px}
+ thead{position:absolute;left:-9999px}
+ tr{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+ tr:last-child{border-bottom:0}
+ td{padding:0;border:0}
+ td.name{grid-column:1/2;font-size:17px}
+ td[data-l=Plan]{grid-column:1/2}
+ td[data-l=Pago],td[data-l=Saldo],td[data-l="Estado final"]{grid-column:2/3;grid-row:1/3;align-self:center;text-align:right}
+ td[data-l=Vencimiento],td[data-l=Venció]{grid-column:1/3;color:var(--muted);font-size:14px}
+ td[data-l=Vencimiento]::before{content:"Vence el "}
+ td[data-l=Venció]::before{content:"Venció el "}
+ .sub{display:block;margin:4px 0 0}
+ td[data-l=Venció] .sub{display:inline;margin-left:6px}
+}
+@media (prefers-reduced-motion:reduce){.bar span{animation:none}}
+@media print{header{background:#fff;color:#000;padding:0}header p{color:#333}.hero{margin:16px 0;box-shadow:none}body{background:#fff}.bar span{animation:none}}
+</style></head><body>
+<header><div class="wrap">
+<div class="brand"><i></i>Mary Fitness</div>
+<h1>Estado de cartera de clientes</h1>
+<p>Corte al 28 de septiembre de 2026. Clasificación por vigencia del plan y estado de pago.</p>
+</div></header>
+<main class="wrap">
+<div class="hero">
+ <div class="hero-top">
+  <div class="big">$470.000<small>por cobrar a 10 de 30 clientes</small></div>
+  <div class="lead" style="margin:0;max-width:34ch">$365.000 corresponden a planes vigentes con deuda y $105.000 a planes ya vencidos.</div>
+ </div>
+ <div class="bar" role="img" aria-label="Distribución: 10 al día, 7 con deuda, 13 vencidos">
+  <span style="flex:10;background:#1fae9d"></span><span style="flex:7;background:#f0a020"></span><span style="flex:13;background:#e04545"></span>
+ </div>
+ <div class="legend">
+  <a href="#al-dia"><i class="dot" style="background:#1fae9d"></i><b>10</b><em>Al día<br>plan vigente y pagado</em></a>
+  <a href="#deuda"><i class="dot" style="background:#f0a020"></i><b>7</b><em>Con deuda<br>plan vigente, pago parcial</em></a>
+  <a href="#vencidos"><i class="dot" style="background:#e04545"></i><b>13</b><em>Vencidos<br>plan caducado en septiembre</em></a>
+ </div>
+</div>
+
+<section id="al-dia"><div class="sh"><h2>Al día</h2><span class="count ok">10 clientes</span></div>
+<p class="lead">Planes vigentes (vencimiento igual o posterior a hoy) con el 100% de la tarifa pagada.</p>
+<div class="tw"><table><thead><tr><th>Cliente</th><th>Plan</th><th>Vence</th><th>Pago</th></tr></thead><tbody><tr><td data-l="Cliente" class="name">Ana Karina Marin Boscan</td><td data-l="Plan"><span class="plan">plan_mensual_70</span></td><td data-l="Vencimiento"><time datetime="2026-10-29">29 oct</time></td><td data-l="Pago"><span class="chip ok">Completo $70.000</span></td></tr><tr><td data-l="Cliente" class="name">Katy Angulo Jimenez</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Vencimiento"><time datetime="2026-10-21">21 oct</time></td><td data-l="Pago"><span class="chip ok">Completo $35.000</span></td></tr><tr><td data-l="Cliente" class="name">Ana Del Carmen Jimenez</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Vencimiento"><time datetime="2026-10-21">21 oct</time></td><td data-l="Pago"><span class="chip ok">Completo $35.000</span></td></tr><tr><td data-l="Cliente" class="name">Zurley Larios</td><td data-l="Plan"><span class="plan">plan_retos</span></td><td data-l="Vencimiento"><time datetime="2026-10-28">28 oct</time></td><td data-l="Pago"><span class="chip ok">Completo $70.000</span></td></tr><tr><td data-l="Cliente" class="name">Iris Diaz</td><td data-l="Plan"><span class="plan">plan_mensual</span></td><td data-l="Vencimiento"><time datetime="2026-09-28">28 sep</time></td><td data-l="Pago"><span class="chip ok">Completo $80.000</span></td></tr><tr><td data-l="Cliente" class="name">Yina Alvarado</td><td data-l="Plan"><span class="plan">plan_mensual_70</span></td><td data-l="Vencimiento"><time datetime="2026-10-10">10 oct</time></td><td data-l="Pago"><span class="chip ok">Completo $70.000</span></td></tr><tr><td data-l="Cliente" class="name">Loly Luz Monterrosa</td><td data-l="Plan"><span class="plan">plan_uso_maquinas_mensual</span></td><td data-l="Vencimiento"><time datetime="2026-11-30">30 nov</time></td><td data-l="Pago"><span class="chip ok">Completo $40.000</span></td></tr><tr><td data-l="Cliente" class="name">Katya S/A</td><td data-l="Plan"><span class="plan">plan_2x1_mensual</span></td><td data-l="Vencimiento"><time datetime="2026-10-11">11 oct</time></td><td data-l="Pago"><span class="chip ok">Completo $65.000</span></td></tr><tr><td data-l="Cliente" class="name">Karen Herrera</td><td data-l="Plan"><span class="plan">plan_mensual</span></td><td data-l="Vencimiento"><time datetime="2026-10-08">8 oct</time></td><td data-l="Pago"><span class="chip ok">Completo $80.000</span></td></tr><tr><td data-l="Cliente" class="name">Taikys S/A</td><td data-l="Plan"><span class="plan">plan_2x1_mensual</span></td><td data-l="Vencimiento"><time datetime="2026-10-24">24 oct</time></td><td data-l="Pago"><span class="chip ok">Completo $65.000</span></td></tr></tbody></table></div></section>
+
+<section id="deuda"><div class="sh"><h2>Activos con deuda</h2><span class="count warn">7 clientes, $365.000</span></div>
+<p class="lead">Planes vigentes con pago parcial: queda saldo pendiente frente al valor total del plan.</p>
+<div class="tw"><table><thead><tr><th>Cliente</th><th>Plan</th><th>Vence</th><th>Saldo pendiente</th></tr></thead><tbody><tr><td data-l="Cliente" class="name">Esther Masias Machuca</td><td data-l="Plan"><span class="plan">plan_mensual</span></td><td data-l="Vencimiento"><time datetime="2026-10-07">7 oct</time></td><td data-l="Saldo"><span class="chip warn">Debe $80.000</span></td></tr><tr><td data-l="Cliente" class="name">Karen Casseres</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Vencimiento"><time datetime="2026-10-07">7 oct</time></td><td data-l="Saldo"><span class="chip warn">Debe $35.000</span></td></tr><tr><td data-l="Cliente" class="name">Aura Royero</td><td data-l="Plan"><span class="plan">plan_mensual</span></td><td data-l="Vencimiento"><time datetime="2026-10-16">16 oct</time></td><td data-l="Saldo"><span class="chip warn">Debe $80.000</span></td></tr><tr><td data-l="Cliente" class="name">Dalma Kamila Davila Machado</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Vencimiento"><time datetime="2026-10-07">7 oct</time></td><td data-l="Saldo"><span class="chip warn">Debe $35.000</span></td></tr><tr><td data-l="Cliente" class="name">Vanesa Perez Amaris</td><td data-l="Plan"><span class="plan">plan_2x1_mensual</span></td><td data-l="Vencimiento"><time datetime="2026-10-16">16 oct</time></td><td data-l="Saldo"><span class="chip warn">Debe $5.000</span> <span class="sub">pagó $60.000</span></td></tr><tr><td data-l="Cliente" class="name">Elianis S/A</td><td data-l="Plan"><span class="plan">plan_2x1_mensual</span></td><td data-l="Vencimiento"><time datetime="2026-10-16">16 oct</time></td><td data-l="Saldo"><span class="chip warn">Debe $65.000</span></td></tr><tr><td data-l="Cliente" class="name">Isamar Barrios</td><td data-l="Plan"><span class="plan">plan_2x1_mensual</span></td><td data-l="Vencimiento"><time datetime="2026-10-11">11 oct</time></td><td data-l="Saldo"><span class="chip warn">Debe $65.000</span></td></tr></tbody></table></div></section>
+
+<section id="vencidos"><div class="sh"><h2>Vencidos recientemente</h2><span class="count bad">13 clientes</span></div>
+<p class="lead">Planes que caducaron antes del 28 de septiembre de 2026, casi todos en el último mes. 10 cerraron pagados y 3 con deuda de $35.000 cada uno.</p>
+<div class="tw"><table><thead><tr><th>Cliente</th><th>Plan</th><th>Venció</th><th>Estado final del pago</th></tr></thead><tbody><tr><td data-l="Cliente" class="name">Nereida Rocha</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Venció"><time datetime="2026-09-22">22 sep</time> <span class="sub">hace 6 días</span></td><td data-l="Estado final"><span class="chip bad">Parcial, debe $35.000</span></td></tr><tr><td data-l="Cliente" class="name">Orlis Casseres</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Venció"><time datetime="2026-09-22">22 sep</time> <span class="sub">hace 6 días</span></td><td data-l="Estado final"><span class="chip bad">Parcial, debe $35.000</span></td></tr><tr><td data-l="Cliente" class="name">Yorgelis Morales</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Venció"><time datetime="2026-09-22">22 sep</time> <span class="sub">hace 6 días</span></td><td data-l="Estado final"><span class="chip bad">Parcial, debe $35.000</span></td></tr><tr><td data-l="Cliente" class="name">Viviana Oliveros</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Venció"><time datetime="2026-09-22">22 sep</time> <span class="sub">hace 6 días</span></td><td data-l="Estado final"><span class="chip mute">Completo</span></td></tr><tr><td data-l="Cliente" class="name">Paola Arrieta</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Venció"><time datetime="2026-09-22">22 sep</time> <span class="sub">hace 6 días</span></td><td data-l="Estado final"><span class="chip mute">Completo</span></td></tr><tr><td data-l="Cliente" class="name">Norma Díaz</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Venció"><time datetime="2026-09-22">22 sep</time> <span class="sub">hace 6 días</span></td><td data-l="Estado final"><span class="chip mute">Completo</span></td></tr><tr><td data-l="Cliente" class="name">Zulay Morales</td><td data-l="Plan"><span class="plan">plan_mensual</span></td><td data-l="Venció"><time datetime="2026-09-27">27 sep</time> <span class="sub">hace 1 día</span></td><td data-l="Estado final"><span class="chip mute">Completo</span></td></tr><tr><td data-l="Cliente" class="name">Angie Niebles</td><td data-l="Plan"><span class="plan">plan_mensual_70</span></td><td data-l="Venció"><time datetime="2026-09-25">25 sep</time> <span class="sub">hace 3 días</span></td><td data-l="Estado final"><span class="chip mute">Completo</span></td></tr><tr><td data-l="Cliente" class="name">Marisol Mejia Oliveros</td><td data-l="Plan"><span class="plan">plan_mensual</span></td><td data-l="Venció"><time datetime="2026-09-25">25 sep</time> <span class="sub">hace 3 días</span></td><td data-l="Estado final"><span class="chip mute">Completo</span></td></tr><tr><td data-l="Cliente" class="name">Juana Palomino</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Venció"><time datetime="2026-09-23">23 sep</time> <span class="sub">hace 5 días</span></td><td data-l="Estado final"><span class="chip mute">Completo</span></td></tr><tr><td data-l="Cliente" class="name">Tatiana Otalora</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Venció"><time datetime="2026-09-21">21 sep</time> <span class="sub">hace 7 días</span></td><td data-l="Estado final"><span class="chip mute">Completo</span></td></tr><tr><td data-l="Cliente" class="name">Maryuris S/A</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Venció"><time datetime="2026-09-21">21 sep</time> <span class="sub">hace 7 días</span></td><td data-l="Estado final"><span class="chip mute">Completo</span></td></tr><tr><td data-l="Cliente" class="name">Dayana Angulo</td><td data-l="Plan"><span class="plan">plan_reto_2x1</span></td><td data-l="Venció"><time datetime="2026-09-21">21 sep</time> <span class="sub">hace 7 días</span></td><td data-l="Estado final"><span class="chip mute">Completo</span></td></tr></tbody></table></div></section>
+
+<section><div class="sh"><h2>Totalmente inactivos</h2><span class="count mute">0 clientes</span></div>
+<div class="empty">Ningún cliente entra en esta categoría. Todos los vencimientos están entre el 21 de septiembre y el 30 de noviembre de 2026, sin señales de abandono.</div></section>
+
+<section><h2 style="margin-bottom:14px">Consideraciones de negocio</h2>
+<ul class="notes">
+<li><b>Riesgo en la cartera de cobro</b>Muchos clientes inician sus planes pagando $0. Siete usuarios mantienen el servicio activo sin haber abonado y tres dejaron vencer su plan con deuda por el total del servicio.</li>
+<li><b>Morosidad en planes grupales</b>Gran parte de los saldos pendientes se concentra en <code>plan_reto_2x1</code> y <code>plan_2x1_mensual</code>. Es probable que en los pagos compartidos cada persona espere que pague la otra.</li>
+<li><b>Oportunidad de renovación</b>Hay 13 clientes cuyas membresías vencieron en los últimos 7 días. Es la ventana en la que es más probable cerrar una renovación.</li>
+</ul></section>
+<footer>Mary Fitness, reporte generado a partir de la base de datos de clientes al 28 de septiembre de 2026.</footer>
+</main></body></html>
