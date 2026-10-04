@@ -53,6 +53,8 @@ La respuesta original a `Pendientes/003-respuesta-decisiones-pendientes.md` #8 f
 
 Plan detallado por fases con criterios de aceptación: `reportes/005-plan-mejoras-firebase.md`.
 
+Estado a 2026-10-02: el proyecto de Firebase (`mary-fitness`, project number `847997858505`) fue **eliminado**, con la perdida irrecuperable de todo lo que se hubiera subido. La fase 2 (auth anónima + reglas por UID) ya esta implementada en el codigo y las reglas estan versionadas en `firestore.rules`, precisamente para no volver a exponer datos con reglas abiertas. Queda pendiente recrear el proyecto y, en el camino, la fase 3 (restauración), que es la que convierte el backup en algo recuperable.
+
 ## 8. Sistema de notificaciones: decisiones de negocio
 
 Las decisiones de negocio del sistema de notificaciones (franja horaria 06:00-21:00, tres canales versionados, umbral de agrupamiento N=6, `VISIBILITY_PRIVATE`, reconciliación cada 8 h, batería opt-in, filtro de caducidad de 48 h, `requestCode` determinista y log local) están en el documento aparte `documentacion/ADR-notificaciones.md`, porque son extensas y cambian de forma independiente de este archivo.

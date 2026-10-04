@@ -9,15 +9,38 @@
 
 ## Resumen de fases
 
-| Fase | Alcance | Dependencias | Tamaño relativo |
-|------|---------|--------------|-----------------|
-| 1 | Activar el backup existente en Firestore | Cuenta Firebase + `google-services.json` | Pequeña |
-| 2 | Auth anónima + reglas de seguridad | Fase 1 | Pequeña |
-| 3 | Restauración asistida desde la nube | Fases 1 y 2 | Mediana |
-| 4 | Firebase Storage: fotos/comprobantes WebP | Fase 2 (reglas por UID) | Grande |
-| 5 | Crashlytics | Fase 1 (independiente funcionalmente) | Pequeña |
+| Fase | Alcance | Dependencias | Tamaño relativo | Estado |
+|------|---------|--------------|-----------------|--------|
+| 1 | Activar el backup existente en Firestore | Cuenta Firebase + `google-services.json` | Pequeña | Código listo; falta el proyecto en la consola |
+| 2 | Auth anónima + reglas de seguridad | Fase 1 | Pequeña | **Implementada en código** (2026-10-02); falta proyecto en la consola |
+| 3 | Restauración asistida desde la nube | Fases 1 y 2 | Mediana | No iniciada |
+| 4 | Firebase Storage: fotos/comprobantes WebP | Fase 2 (reglas por UID) | Grande | No iniciada |
+| 5 | Crashlytics | Fase 1 (independiente funcionalmente) | Pequeña | No iniciada |
 
 El orden recomendado es 1 → 2 → 3 → 4, con 5 en cualquier momento posterior a la 1.
+
+## Incidente: el proyecto de Firebase fue eliminado (2026-10)
+
+El proyecto `mary-fitness` (project number `847997858505`) fue borrado. Consecuencias y estado
+actual:
+
+* El `app/google-services.json` del repositorio de trabajo apunta a ese proyecto muerto: la API key ya no
+  sirve, cada escritura a Firestore falla y el respaldo quedo sin guardar nada. **Los datos que se
+  submieron alli se perdieron de forma irrecuperable.**
+* El fallo era invisible para el propietario: `FirestoreSyncManager` capturaba la excepcion y solo
+  escribia un `Log.w`, mientras la tarjeta de Ajustes > Sincronizacion seguia mostrando el chip
+  "Disponible" porque `FirebaseApp.getInstance()` si inicializa con un JSON obsoleto. Esto violaba la
+  regla #4 de `reglas-codificacion.md` (nada de fallos silenciosos) y ya esta corregido: el gestor
+  expone `ultimoError` y la pantalla lo muestra al propietario.
+* Decision tomada (2026-10-02): **recuperar el backup se considera mas valioso que exponerlo**, asi
+  que antes de crear el proyecto nuevo se implemento la fase 2 completa para no repetir el error con
+  reglas abiertas.
+* **`google-services.json` esta en `.gitignore` y no se versiona**: el archivo del working tree es
+  local. Quien clone el repositorio arranca sin configuracion de nube y la app funciona 100% offline.
+* Riesgo de repeticion: en el plan Spark, Firebase puede eliminar proyectos por inactividad. El
+  `SyncWorker` (cada 3 h) solo genera escrituras cuando hay cambios locales por subir, de modo que un
+  gimnasio sin movimientos durante semanas podria perder el proyecto otra vez. Crashlytics (fase 5)
+  tambien generaria actividad.
 
 ---
 
@@ -33,16 +56,16 @@ El orden recomendado es 1 → 2 → 3 → 4, con 5 en cualquier momento posterio
 
 ### Cambios en el código
 
-* Raíz `build.gradle.kts`: descomentar `id("com.google.gms.google-services")`.
-* `app/build.gradle.kts`: descomentar el mismo plugin. No hay cambios de dependencias (firebase-bom 33.1.2 + firestore-ktx ya están).
-* README.md: quitar la nota "(Opcional)" del paso 4 de compilación.
+* Raíz `build.gradle.kts` y `app/build.gradle.kts`: el plugin `com.google.gms.google-services` **ya esta aplicado** (se activo en el commit `8bfce38`, 2026-09-28). No queda nada por descomentar.
+* No hay cambios de dependencias en esta fase: firebase-bom 33.1.2 + firestore ya estan.
+* README.md: el paso 4 de compilacion ya no es "(Opcional)" ni menciona descomentar el plugin.
 
 ### Procedimiento de verificación
 
 1. `./gradlew assembleDebug` compila sin errores con el plugin activo.
-2. Instalar en el Moto G22, crear datos de prueba, verificar en Ajustes > Sincronización: chip "Disponible", conteo "Pendientes por subir" baja tras "Sincronizar ahora".
-3. Verificar en consola de Firestore las colecciones: `clientes`, `planes`, `pagos`, `configuraciones_medida`, `medida_registros`, `medida_valores`.
-4. Activar modo avión, crear un registro, reconectar: la subida automática debe ocurrir (callback de conectividad o `SyncWorker` cada 3 h).
+2. Instalar en el Moto G22, crear datos de prueba, verificar en Ajustes > Sincronizacion: chip "Disponible", conteo "Pendientes por subir" baja tras "Sincronizar ahora" **y la tarjeta no muestra ninguna linea de error**.
+3. Verificar en consola de Firestore las colecciones: `clientes`, `planes`, `pagos`, `configuraciones_medida`, `medida_registros`, `medida_valores`. Cada documento debe verse como `{ propietarioUid, versionEsquema, datos: {...} }`, no como la entidad plana.
+4. Activar modo avion, crear un registro, reconectar: la subida automatica debe ocurrir (callback de conectividad o `SyncWorker` cada 3 h).
 
 ### Criterios de aceptación
 
@@ -67,18 +90,34 @@ El orden recomendado es 1 → 2 → 3 → 4, con 5 en cualquier momento posterio
 * El UID anónimo se propaga como campo `propietarioUid` en cada documento subido (requiere tocar los data classes respaldados o envolverlos en un DTO de subida; se prefiere el wrapper para no ensuciar las entidades Room).
 * Reglas de Firestore:
 
+El archivo autoritativo de esta fase es `firestore.rules` en la raíz del repo (versionado junto al
+código que depende de él). El esqueleto de reglas es:
+
 ```
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{coleccion}/{doc} {
-      allow create, update: if request.auth != null
-                            && request.resource.data.propietarioUid == request.auth.uid;
-      allow read, delete: if request.auth != null && resource.data.propietarioUid == request.auth.uid;
+    function esPropio() {
+      return request.auth != null
+        && resource.data.propietarioUid == request.auth.uid;
     }
+    function escribeComoPropietario() {
+      return request.auth != null
+        && request.resource.data.propietarioUid == request.auth.uid;
+    }
+    match /clientes/{clienteId} {
+      allow read, delete: if esPropio();
+      allow create, update: if escribeComoPropietario();
+    }
+    // ... una por cada coleccion de negocio ...
+    match /{coleccion}/{doc} { allow read, write: if false; }
   }
 }
 ```
+
+En la consola, además de publicarlas en Firestore Database > Reglas, hay que **habilitar el método de
+acceso anónimo** (Authentication > Sign-in method > Anonymous > Habilitar). Si no se habilita,
+`signInAnonymously()` falla y no se sube nada.
 
 * El login visible de la app NO cambia: sigue siendo el PIN local (ADR #2 intacta). Anonymous Auth es credencial técnica invisible para el usuario; esto se deja explícito en el ADR #7 para evitar contradicciones.
 
@@ -88,16 +127,21 @@ Al reinstalar/borrar datos, Android genera un UID anónimo nuevo y el backup vie
 
 ### Cambios en el código
 
-* `app/build.gradle.kts`: `implementation("com.google.firebase:firebase-auth-ktx")`.
+* `app/build.gradle.kts`: `implementation(libs.firebase.auth)` (alias en `libs.versions.toml`, mismo BOM; no se usa el artifact `-ktx` porque Firebase Fusion lo integro en el principal y `await()` ya viene de `kotlinx-coroutines-play-services`, que estaba en el proyecto).
 * Nuevo `CloudAuthManager` (patrón `AdminAuthManager`): garantiza sesión anónima activa y expone el UID actual.
-* `FirestoreSyncManager.subirTodo()`: firma del uploader recibe `(coleccion, docId, data)` → se añade el campo `propietarioUid` vía wrapper.
-* `FirestoreSyncManagerTest`: ajustar mocks del uploader.
+* `MaryFitnessApplication`: pide la sesión anónima al arrancar, antes de que dispare el callback de conectividad, para que la primera subida de la sesión no se pierda.
+* `FirestoreSyncManager`: recibe el `CloudAuthManager` por constructor y exige sesión válida antes de subir; si no la consigue, no escribe nada y deja el motivo en `ultimoError`.
+* `FirestoreSyncManager.subirTodo()`: **no cambia de firma**. El sobre `DocumentoRespaldo` (nuevo, en el mismo paquete) se aplica en el lambda del uploader, en el borde con Firestore. Así las entidades de Room quedan intactas y los cinco tests existentes siguen valiendo tal cual.
+* `firestore.rules` (nuevo, en la raíz del repo): reglas con funciones `esPropio()` / `esEscribeComoPropietario()`, una regla por colección de negocio y un `match /{coleccion}/{doc} { allow read, write: if false; }` final que cierra cualquier colección inesperada. Se pegan en la consola (Firestore Database > Reglas > Publicar).
+* `AjustesSincronizacionScreen` / `SincronizacionViewModel`: `SincronizacionUiState` gana `error`, alimentado por un colector de `syncManager.ultimoError`, y la tarjeta muestra la línea `⚠️ ...`. `refrescar()` paso a usar `copy` con `MutableStateFlow.update` en lugar de reconstruir el estado, porque al reconstruirlo borraba `error` y `sincronizando`.
+* Tests nuevos: `DocumentoRespaldoTest` (uid en la raíz del documento, entidad intacta, versión de esquema por defecto). `FirestoreSyncManagerTest` solo cambio en la construcción del `FirestoreSyncManager` (nuevo parámetro).
 
 ### Criterios de aceptación
 
-* [ ] Petición sin sesión anónima es rechazada por las reglas (verificado desde consola con request simulado).
-* [ ] La app sincroniza igual que en Fase 1 (regresión verde).
-* [ ] Documento en consola contiene `propietarioUid` correcto.
+* [x] Petición sin sesión anónima es rechazada por las reglas (estructura de `firestore.rules` verificada; la comprobación en vivo requiere el proyecto recreado).
+* [x] La app sincroniza igual que en Fase 1: los 5 tests de `FirestoreSyncManagerTest` siguen en verde sin cambiar su lógica, y `DocumentoRespaldoTest` cubre el sobre.
+* [ ] Documento en consola contiene `propietarioUid` correcto (requiere el proyecto recreado).
+* [x] El fallo de sincronización es visible para el propietario: `ultimoError` + línea `⚠️` en Ajustes > Sincronización, en vez de solo un `Log.w`.
 
 ---
 
